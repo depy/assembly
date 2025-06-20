@@ -80,11 +80,11 @@ print2:
     mov rbp, rsp
 
     # Start of function code to call write syscall
-	mov rax, 0x01		# 0x01 is write syscall
-	mov rdx, rsi        # length of string passed into function as second arg
+    mov rax, 0x01		# 0x01 is write syscall
+    mov rdx, rsi        # length of string passed into function as second arg
     mov rsi, rdi	    # pointer to start of message to print as first arg
-	mov rdi, 1			# setting fd to STDOUT (1)
-	syscall
+    mov rdi, 1			# setting fd to STDOUT (1)
+    syscall
 
     cmp rax, 1
     jl return
