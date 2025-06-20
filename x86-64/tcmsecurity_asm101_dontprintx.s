@@ -27,12 +27,13 @@ message2:
 print:
     push rbp
     mov rbp, rsp
-
-    mov rax, [rbp + 16]
-    mov rbx, [rbp + 24]
-    push 0xFF
     push rbx
-    push rax
+
+    mov r10, [rbp + 16]
+    mov r11, [rbp + 24]
+    push 0xFF
+    push r11
+    push r10
     push r9
     push r8
     push rcx
@@ -62,6 +63,7 @@ loop:
     jmp loop
     
 end:
+    pop rbx
     mov rsp, rbp
     pop rbp
     ret
@@ -80,11 +82,11 @@ print2:
     mov rbp, rsp
 
     # Start of function code to call write syscall
-    mov rax, 0x01		# 0x01 is write syscall
-    mov rdx, rsi        # length of string passed into function as second arg
+	mov rax, 0x01		# 0x01 is write syscall
+	mov rdx, rsi        # length of string passed into function as second arg
     mov rsi, rdi	    # pointer to start of message to print as first arg
-    mov rdi, 1			# setting fd to STDOUT (1)
-    syscall
+	mov rdi, 1			# setting fd to STDOUT (1)
+	syscall
 
     cmp rax, 1
     jl return
